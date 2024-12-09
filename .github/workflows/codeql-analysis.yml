@@ -2,20 +2,19 @@ name: "CodeQL Analysis"
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'frontend/**'
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'frontend/**'
+    branches: [ "main" ]
   schedule:
-    - cron: '0 0 * * 0'  # Run weekly
+    - cron: '30 1 * * 0'
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     permissions:
       actions: read
       contents: read
@@ -35,11 +34,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
-        source-root: frontend
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v2
-      working-directory: frontend
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
