@@ -21,7 +21,9 @@ const formatDate = (dateString) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   } catch (error) {
-    console.error('Error formatting date:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error formatting date:', error);
+    }
     return dateString; // Return original string if any error occurs
   }
 };
@@ -47,7 +49,6 @@ const Home = () => {
     };
 
     fetchReminders();
-    console.log(reminders);
   }, [user]);
 
   const handleToggleComplete = async (reminder) => {
