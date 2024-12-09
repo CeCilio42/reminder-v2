@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     jest: true,
+    node: true
   },
   extends: [
     'eslint:recommended',
@@ -41,6 +42,12 @@ module.exports = {
     'security/detect-eval-with-expression': 'error',
     'security/detect-no-csrf-before-method-override': 'error',
     'security/detect-possible-timing-attacks': 'warn',
-    'security/detect-pseudoRandomBytes': 'warn'
+    'security/detect-pseudoRandomBytes': 'warn',
+    'no-unused-vars': ['error', { 
+      "vars": "all",
+      "args": "after-used",
+      "ignoreRestSiblings": true,
+      "argsIgnorePattern": "^_"
+    }]
   },
 }; 

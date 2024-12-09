@@ -10,10 +10,10 @@ import Company from './pages/Company';
 import Saved from './pages/Saved';
 import Calendar from './pages/Calendar';
 import LandingPage from './pages/LandingPage';
-import './App.css';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import './App.css';
 
 const AuthenticationGuard = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth0();

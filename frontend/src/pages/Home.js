@@ -1,29 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { handleFetchReminders, handleDeleteReminder, toggleCompleteReminder } from '../api/reminder-api';
+import { handleFetchReminders, toggleCompleteReminder, handleDeleteReminder } from '../api/reminder-api';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Home() {
+const formatDate = (dateString) => {
+  try {
+    // First ensure we have a valid date string by replacing any "/" with "-"
+    const normalizedDateString = dateString.replace(/\//g, '-');
+    const date = new Date(normalizedDateString);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return dateString; // Return original string if invalid
+    }
+    
+    // Format the date manually to ensure YYYY-MM-DD
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    console.error('Error formatting date:', error);
+    return dateString; // Return original string if any error occurs
+  }
+};
+
+const isOverdue = (dateString, completed) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const reminderDate = new Date(dateString);
+  reminderDate.setHours(0, 0, 0, 0);
+  return reminderDate < today && !completed;
+};
+
+const Home = () => {
   const { user } = useAuth0();
   const [reminders, setReminders] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchReminders = async () => {
-      try {
-        const fetchedReminders = await handleFetchReminders(user?.sub);
+      if (user) {
+        const fetchedReminders = await handleFetchReminders(user.sub);
         setReminders(fetchedReminders);
-      } catch (error) {
-        toast.error('Failed to fetch reminders');
-      } finally {
-        setLoading(false);
       }
     };
 
-    if (user?.sub) {
-      fetchReminders();
-    }
-  }, [user?.sub]);
+    fetchReminders();
+    console.log(reminders);
+  }, [user]);
 
   const handleToggleComplete = async (reminder) => {
     try {

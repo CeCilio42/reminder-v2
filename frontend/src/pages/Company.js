@@ -125,8 +125,8 @@ const Company = () => {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Company Name</label>
-                  <p className="mt-1 text-gray-600">{companyInfo?.company?.name || 'Loading...'}, {companyInfo?.company?.id}</p>
+                  <label htmlFor="companyName" className="block text-sm font-medium text-gray-700">Company Name</label>
+                  <p id="companyName" className="mt-1 text-gray-600">{companyInfo?.company?.name || 'Loading...'}, {companyInfo?.company?.id}</p>
                 </div>
                 <button
                   onClick={() => setIsChangeCompanyModalOpen(true)}
@@ -347,10 +347,11 @@ const Company = () => {
             <h3 className="text-lg font-semibold mb-4">Change Company</h3>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="newCompanyId" className="block text-sm font-medium text-gray-700 mb-2">
                   New Company ID
                 </label>
                 <input
+                  id="newCompanyId"
                   type="text"
                   value={newCompanyId}
                   onChange={(e) => setNewCompanyId(e.target.value)}
@@ -359,10 +360,11 @@ const Company = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                   Password
                 </label>
                 <input
+                  id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

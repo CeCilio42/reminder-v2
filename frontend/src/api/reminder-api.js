@@ -1,37 +1,21 @@
-import { parseISO, format } from 'date-fns';
-
-// Add error handling wrapper
-const handleApiError = async (apiCall) => {
-  try {
-    const response = await apiCall();
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'An error occurred');
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('API Error:', error);
-    throw error;
-  }
-};
+// API functions for handling reminders
 
 export const handleFetchReminders = async (userId) => {
-    try {
-      const response = await fetch(`https://localhost:7176/Home/GetRemindersByUserId?user_id=${userId}`);
-      
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      
-      const data = await response.json();
+  try {
+    const response = await fetch(`https://localhost:7176/Home/GetRemindersByUserId?user_id=${userId}`);
     
-      return data.reminders;
-      
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-      return []; 
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  };
+    
+    const data = await response.json();
+    return data.reminders;
+    
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return []; 
+  }
+};
 
 export const handleFetchCompanyReminders = async (userId) => {
     try {
