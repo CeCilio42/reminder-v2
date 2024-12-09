@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Topbar from './components/Topbar/Topbar';
@@ -14,35 +15,41 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
-const ProtectedRoute = ({ children }) => {
+const AuthenticationGuard = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth0();
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
-      </div>
-    );
+    return <div>Loading...</div>;
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/" />;
   }
 
   return children;
 };
 
-const AuthenticatedLayout = ({ children }) => (
-  <div className="flex h-screen bg-gray-100">
-    <Sidebar />
-    <div className="flex-1 flex flex-col overflow-hidden">
+AuthenticationGuard.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+const AppLayout = ({ children }) => {
+  return (
+    <div className="min-h-screen bg-gray-100">
       <Topbar />
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
-        {children}
-      </main>
+      <div className="flex">
+        <Sidebar />
+        <main className="flex-1 p-6">
+          {children}
+        </main>
+      </div>
     </div>
-  </div>
-);
+  );
+};
+
+AppLayout.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 function App() {
   const { isLoading } = useAuth0();
@@ -61,39 +68,39 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={
-            <ProtectedRoute>
-              <AuthenticatedLayout>
+            <AuthenticationGuard>
+              <AppLayout>
                 <Home />
-              </AuthenticatedLayout>
-            </ProtectedRoute>
+              </AppLayout>
+            </AuthenticationGuard>
           } />
           <Route path="/create" element={
-            <ProtectedRoute>
-              <AuthenticatedLayout>
+            <AuthenticationGuard>
+              <AppLayout>
                 <Create />
-              </AuthenticatedLayout>
-            </ProtectedRoute>
+              </AppLayout>
+            </AuthenticationGuard>
           } />
           <Route path="/company" element={
-            <ProtectedRoute>
-              <AuthenticatedLayout>
+            <AuthenticationGuard>
+              <AppLayout>
                 <Company />
-              </AuthenticatedLayout>
-            </ProtectedRoute>
+              </AppLayout>
+            </AuthenticationGuard>
           } />
           <Route path="/calendar" element={
-            <ProtectedRoute>
-              <AuthenticatedLayout>
+            <AuthenticationGuard>
+              <AppLayout>
                 <Calendar />
-              </AuthenticatedLayout>
-            </ProtectedRoute>
+              </AppLayout>
+            </AuthenticationGuard>
           } />
           <Route path="/saved" element={
-            <ProtectedRoute>
-              <AuthenticatedLayout>
+            <AuthenticationGuard>
+              <AppLayout>
                 <Saved />
-              </AuthenticatedLayout>
-            </ProtectedRoute>
+              </AppLayout>
+            </AuthenticationGuard>
           } />
         </Routes>
         <ToastContainer />

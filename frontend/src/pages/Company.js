@@ -404,29 +404,69 @@ const Company = () => {
           <div className="bg-white p-6 rounded-lg w-96">
             <h3 className="text-lg font-semibold mb-4">Create Company Reminder</h3>
             <div>
-              <input
-                type="text"
-                placeholder="Reminder Title"
-                onChange={(e) => setReminderData({ ...reminderData, title: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-              />
-              <textarea
-                placeholder="Reminder Description"
-                onChange={(e) => setReminderData({ ...reminderData, description: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-              />
-              <input
-                type="date"
-                onChange={(e) => setReminderData({ ...reminderData, date: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-              />
-              <input
-                type="text"
-                placeholder="Create Code"
-                onChange={(e) => setReminderData({ ...reminderData, create_code: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md mb-4"
-              />
-              {/* Add more fields as necessary */}
+              <div className="mb-4">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Title
+                </label>
+                <input
+                  id="title"
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  value={reminderData.title}
+                  onChange={(e) => setReminderData({ ...reminderData, title: e.target.value })}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  value={reminderData.description}
+                  onChange={(e) => setReminderData({ ...reminderData, description: e.target.value })}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="date"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Date
+                </label>
+                <input
+                  id="date"
+                  type="date"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  value={reminderData.date}
+                  onChange={(e) => setReminderData({ ...reminderData, date: e.target.value })}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="create_code"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Create Code
+                </label>
+                <input
+                  id="create_code"
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  value={reminderData.create_code}
+                  onChange={(e) => setReminderData({ ...reminderData, create_code: e.target.value })}
+                />
+              </div>
+
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"
