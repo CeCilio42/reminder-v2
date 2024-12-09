@@ -3,8 +3,14 @@ name: "Frontend Code Quality"
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/eslint.yml'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/eslint.yml'
 
 jobs:
   eslint:
@@ -29,6 +35,14 @@ jobs:
         
       - name: Run ESLint
         run: npm run lint
+        
+      - name: Run Prettier check
+        run: npm run prettier:check --if-present
+        continue-on-error: true
+        
+      - name: Check for duplicate dependencies
+        run: npx depcheck
+        continue-on-error: true
         
       - name: Run Tests
         run: npm test -- --watchAll=false
