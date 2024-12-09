@@ -137,7 +137,7 @@ describe('Company Component Date Formatting', () => {
     
     await waitFor(() => {
       // Use a more flexible query that looks for the date text within any element
-      const dateElements = screen.getAllByText((content, element) => {
+      const dateElements = screen.getAllByText((content, _element) => {
         return content.includes('2023-01-01');
       });
       expect(dateElements.length).toBeGreaterThan(0);
