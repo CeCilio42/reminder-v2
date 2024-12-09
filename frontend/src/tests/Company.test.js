@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Company from '../pages/Company';
 import { handleFetchCompanyReminders } from '../api/reminder-api';
 
+// Testing code scans - this comment is added to trigger GitHub Actions
 // Mock the external dependencies
 jest.mock('@auth0/auth0-react');
 jest.mock('../api/reminder-api');
