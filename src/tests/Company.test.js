@@ -8,6 +8,8 @@ import { handleFetchCompanyReminders } from '../api/reminder-api';
 jest.mock('@auth0/auth0-react');
 jest.mock('../api/reminder-api');
 
+// Test push verification - this comment is added to verify Git functionality
+
 // Mock data with various date formats
 const mockCompanyReminders = [
   {
@@ -64,7 +66,7 @@ describe('Company Component Date Formatting', () => {
 
   test('formats different date styles correctly', async () => {
     render(<Company />);
-    
+    //test
     await waitFor(() => {
       // All dates should be formatted consistently as YYYY-MM-DD
       expect(screen.getByText('2024-03-20')).toBeInTheDocument();
