@@ -5,8 +5,32 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { toast } from 'react-toastify';
 
 const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString();
+  // If the date is already in YYYY-MM-DD format, return it as is
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    return dateString;
+  }
+
+  try {
+    // First ensure we have a valid date string by replacing any "/" with "-"
+    const normalizedDateString = dateString.replace(/\//g, '-');
+    const date = new Date(normalizedDateString);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return dateString; // Return original string if invalid
+    }
+    
+    // Format the date manually to ensure YYYY-MM-DD
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error formatting date:', error);
+    }
+    return dateString; // Return original string if any error occurs
+  }
 };
 
 const isOverdue = (dateString, completed) => {
