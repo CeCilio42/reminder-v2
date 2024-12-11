@@ -1,1 +1,8 @@
- 
+## Build results only
+[Bb]in/
+[Oo]bj/
+.vs/
+
+## Local settings
+*.user
+appsettings.Development.json 
