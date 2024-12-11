@@ -6,16 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const formatDate = (dateString) => {
   try {
-    // First ensure we have a valid date string by replacing any "/" with "-"
     const normalizedDateString = dateString.replace(/\//g, '-');
     const date = new Date(normalizedDateString);
     
-    // Check if the date is valid
     if (isNaN(date.getTime())) {
-      return dateString; // Return original string if invalid
+      return dateString;
     }
     
-    // Format the date manually to ensure YYYY-MM-DD
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -24,7 +21,7 @@ const formatDate = (dateString) => {
     if (process.env.NODE_ENV === 'development') {
       console.error('Error formatting date:', error);
     }
-    return dateString; // Return original string if any error occurs
+    return dateString;
   }
 };
 

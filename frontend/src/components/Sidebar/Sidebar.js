@@ -26,7 +26,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className={`bg-gray-800 text-white h-screen ${isOpen ? 'w-64' : 'w-20'} transition-all duration-300 ease-in-out`}>
+    <div className={`bg-gray-800 text-white fixed top-16 left-0 h-[calc(100vh-4rem)] ${isOpen ? 'w-64' : 'w-20'} transition-all duration-300 ease-in-out overflow-y-auto`}>
       {/* Sidebar Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         {isOpen && <span className="text-xl font-bold">Reminder</span>}
