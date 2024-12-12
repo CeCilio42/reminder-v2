@@ -5,6 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 // Test push #2 - Testing GitHub Actions workflow and Docker build
 // Test push #3 - Testing GitHub Actions workflow and Docker build
 // Test push #4 - Testing GitHub Actions workflow with updated Docker config
+// Test push #5 - Testing GitHub Actions workflow with Docker Hub integration
 import Topbar from './components/Topbar/Topbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import Home from './pages/Home';
