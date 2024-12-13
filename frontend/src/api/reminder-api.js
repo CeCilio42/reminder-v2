@@ -1,5 +1,7 @@
 // API functions for handling reminders
 
+import { toast } from 'react-toastify';
+
 export const handleFetchReminders = async (userId) => {
   try {
     const response = await fetch(`https://localhost:7176/Home/GetRemindersByUserId?user_id=${userId}`);
@@ -35,6 +37,7 @@ export const handleFetchCompanyReminders = async (userId) => {
     if (process.env.NODE_ENV === 'development') {
       console.error('There was a problem with the fetch operation:', error);
     }
+    toast.error('Error fetching company reminders: ' + error.message);
     return []; 
   }
 };
@@ -103,11 +106,13 @@ export const handleCreateReminder = async (data) => {
     }
 
     const result = await response.json();
+    toast.success('Reminder created successfully!');
     return result;
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
       console.error('Error creating reminder:', error);
     }
+    toast.error('Error creating reminder: ' + error.message);
     throw error;
   }
 };
@@ -130,7 +135,7 @@ export const handleCreateCompanyReminder = async (data, companyCode, createCode)
     return result;
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
-      console.error('Error creating reminder:', error);
+      toast.error('Error creating reminder');
     }
     throw error;
   }
